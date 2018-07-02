@@ -12,7 +12,7 @@ livereload = require('gulp-livereload'),
 lr = require('tiny-lr'),
 server = lr(),
 image = require('gulp-image'),
-refresh = require('gulp-refresh');
+cache = require('gulp-cache');
 
 // Styles
 gulp.task('styles', function () {
@@ -24,12 +24,16 @@ gulp.task('styles', function () {
         .pipe(notify({ message: 'Styles task complete' }));
 });
 
+// Livereload
+gulp.task('lreload', function() {
+    livereload.reload();
+});
+
 // Images
 gulp.task('images', function() {
-  gulp.src('src/images/*.!(db)')
-    .pipe(cache(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true })))
+  return gulp.src('src/images/*.!(db)')
+    .pipe(image())
     .pipe(gulp.dest('dist/images'));
-    livereload.reload();
 });
 
 // Clean
@@ -49,6 +53,7 @@ gulp.task('images', function() {
       livereload.listen();
       gulp.watch('src/**/*.scss', ['styles']);
       gulp.watch('src/images/**/*', ['images']);
+      gulp.watch('dist/images/**/*', ['lreload']);
       gulp.watch('./*.html', ['html']);
     });
 
