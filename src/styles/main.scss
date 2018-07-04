@@ -1,11 +1,14 @@
 
 $cordestaque: #343434;
+$cordefundo: #d7d7d7;
+$cordetexto: #555555;
 
 .cordefundo {
-	background-color: blue;
-	color: $cordestaque;
+	background-color: $cordefundo;
+	color: $cordetexto;
 }
 
 img{
-	width: 50%;
+	width: 30%;
+	border-radius: 50%;
 }
